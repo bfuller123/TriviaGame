@@ -36,3 +36,39 @@ var questions = {
     answer: null//this will be the answer
   }
 };
+
+var gameFunctions = {
+  correctAnswers: 0,
+  incorrectAnswer: 0,
+  getRandomQuestion: function(){
+    //TODO: add function to get random question
+  },
+  displayQuestion: function(){
+    //TODO: show question and add div where question will be
+  },
+  checkAnswer: function(){
+    //TODO: compare userAnswer to answer
+  },
+  revealAnswer: function(){
+    //TODO: reveal correct answer
+  },
+  tallyScore: function() {
+    //TODO: show how many correct answers at end
+  },
+  resetGame: function() {
+    //TODO: reset game
+  }
+};
+
+var timeFunctions = {
+  timerSecs: 15,
+  startTimer: function(){
+    //TODO: function to start timer once question begins
+  },
+  stopTimer: function() {
+    //TODO: function to stop timer
+  },
+  displayTime: function() {
+    //TODO: function to show remaining time
+  }
+};
