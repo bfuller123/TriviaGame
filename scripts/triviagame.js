@@ -1,12 +1,12 @@
 var questions = {
-  question1: {
-    options:[],
-    answer: null//this will be the answer
+  'What is the name of the bar at the top of the goal in hockey called?': {
+    options:['postbar', 'crossbar', 'topbar', 'horizontal bar'],
+    answer: 'crossbar'
   },
-  question2: {
-    options:[],
-    answer: null//this will be the answer
-  },
+  'Which state first employed the bar exam?': {
+    options:['Illinois', 'New York', 'Rhode Island', 'Massachussets'],
+    answer: 'Massachussets'
+  }/*,
   question3: {
     options:[],
     answer: null//this will be the answer
@@ -34,18 +34,21 @@ var questions = {
   question10: {
     options:[],
     answer: null//this will be the answer
-  }
+  }*/
 };
 
 var gameFunctions = {
   correctAnswers: 0,
   incorrectAnswer: 0,
-  getRandomQuestion: function(){
-    //TODO: add function to get random question
+  questionsToAsk: [],
+  randomizeQuestions: function(){
+    gameFunctions.questionsToAsk = Object.keys(questions);
   },
   displayQuestion: function(){
-    //TODO: show question and add div where question will be
-  },
+    var question = gameFunctions.questionsToAsk.pop();
+    $('#questionArea').html('<h3>'+question+'</h3>');
+  }
+  /*
   checkAnswer: function(){
     //TODO: compare userAnswer to answer
   },
@@ -58,6 +61,7 @@ var gameFunctions = {
   resetGame: function() {
     //TODO: reset game
   }
+  */
 };
 
 var timeFunctions = {
@@ -72,3 +76,8 @@ var timeFunctions = {
     //TODO: function to show remaining time
   }
 };
+
+function startGame(){
+  gameFunctions.randomizeQuestions();
+  gameFunctions.displayQuestion();
+}
