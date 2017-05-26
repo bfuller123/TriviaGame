@@ -1,4 +1,6 @@
 var currentQuestion = null;
+var timerID;
+
 var questions = {
   'What is the name of the bar at the top of the goal in hockey called?': {
     options:['postbar', 'crossbar', 'topbar', 'horizontal bar'],
@@ -38,6 +40,34 @@ var questions = {
   }*/
 };
 
+var timeFunctions = {
+  questiontimerSecs: 15,
+  revealTimerSecs: 5000, //in milliseconds
+  stopTimer: function(timerToStop){
+    clearInterval(timerToStop);
+    timeFunctions.questiontimerSecs = 15;
+    timeFunctions.revealTimerSecs = 5000;
+  },
+  displayTime: function() {
+    $('#timerArea').html(timeFunctions.questiontimerSecs);
+  },
+  countdown: function(){
+    timeFunctions.questiontimerSecs--;
+    timeFunctions.displayTime();
+    if(timeFunctions.questiontimerSecs === 0){
+      timeFunctions.stopTimer(timerID);
+    }
+  },
+  startRevealTimer: function() {
+    //TODO: function to start reveal timer
+  },
+  startQuestionTimer: function(){
+    //TODO: function to start timer once question begins
+    timeFunctions.displayTime();
+    timerID = setInterval(timeFunctions.countdown, 1000);
+  }
+};
+
 var gameFunctions = {
   correctAnswers: 0,
   incorrectAnswers: 0,
@@ -56,6 +86,7 @@ var gameFunctions = {
       $('#answersArea').append(newButton);
       $('#answersArea').append('<br><br>');
     }
+    timeFunctions.startQuestionTimer();
   },
   revealAnswerCorrect: function(){
     $('#answersArea').html('<h4>'+questions[currentQuestion].answer+' is correct!</h4>');
@@ -82,21 +113,8 @@ var gameFunctions = {
   }
 };
 
-var timeFunctions = {
-  timerSecs: 15,
-  startTimer: function(){
-    //TODO: function to start timer once question begins
-  },
-  stopTimer: function() {
-    //TODO: function to stop timer
-  },
-  displayTime: function() {
-    //TODO: function to show remaining time
-  }
-};
 
 function startGame(){
-  console.log(gameFunctions.questionsToAsk);
   gameFunctions.displayQuestion();
 }
 
