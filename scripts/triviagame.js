@@ -40,25 +40,11 @@ var questions = {
 var gameFunctions = {
   correctAnswers: 0,
   incorrectAnswer: 0,
-  questionsToAsk: [],
-  randomizeQuestions: function(){
-    gameFunctions.questionsToAsk = Object.keys(questions);
-  },
-  randomizeArray: function(array){
-    var tempArr = array;
-    var randomizedArray = [];
-    while(tempArr.length > 0){
-      var randNum = Math.floor(Math.random()*tempArr.length);
-      var choice = tempArr[randNum];
-      tempArr.splice(randNum, 1);
-      randomizedArray.push(choice);
-    }
-    return randomizedArray;
-  },
+  questionsToAsk: Randomize.objectKeys(questions),
   displayQuestion: function(){
     //TODO: Add answer attr to each button containing the answer that the button displays
     var question = gameFunctions.questionsToAsk.pop();
-    var answers = gameFunctions.randomizeArray(questions[question].options);
+    var answers = Randomize.array(questions[question].options);
     $('#questionArea').html('<h3>'+question+'</h3><br>');
     for(let i=0; i < answers.length; i++){
       $('#questionArea').append('<button class="btn btn-primary">'+answers[i]+'</button>');
@@ -95,6 +81,5 @@ var timeFunctions = {
 };
 
 function startGame(){
-  gameFunctions.randomizeQuestions();
   gameFunctions.displayQuestion();
 }
