@@ -1,3 +1,4 @@
+var currentQuestion = null;
 var questions = {
   'What is the name of the bar at the top of the goal in hockey called?': {
     options:['postbar', 'crossbar', 'topbar', 'horizontal bar'],
@@ -39,11 +40,12 @@ var questions = {
 
 var gameFunctions = {
   correctAnswers: 0,
-  incorrectAnswer: 0,
+  incorrectAnswers: 0,
   questionsToAsk: Randomize.objectKeys(questions),
+  currentQuestion: null,
   displayQuestion: function(){
-    //TODO: Add answer attr to each button containing the answer that the button displays
     var question = gameFunctions.questionsToAsk.pop();
+    currentQuestion = question;
     var answers = Randomize.array(questions[question].options);
     $('#questionArea').html('<h3>'+question+'</h3><br>');
     for(let i=0; i < answers.length; i++){
@@ -51,24 +53,33 @@ var gameFunctions = {
       newButton.addClass('btn btn-primary');
       newButton.attr('data-answer', answers[i]);
       newButton.text(answers[i]);
-      $('#questionArea').append(newButton);
-      $('#questionArea').append('<br><br>');
+      $('#answersArea').append(newButton);
+      $('#answersArea').append('<br><br>');
     }
-  }
-  /*
-  checkAnswer: function(){
-    //TODO: compare userAnswer to answer
   },
-  revealAnswer: function(){
-    //TODO: reveal correct answer
+  revealAnswerCorrect: function(){
+    $('#answersArea').html('<h4>'+questions[currentQuestion].answer+' is correct!</h4>');
+  },
+  revealAnswerIncorrect: function(){
+    $('#answersArea').html("<h4>I'm sorry. The correct answer is "+questions[currentQuestion].answer+'.</h4>');
+  },
+  checkAnswer: function(){
+    var correctAnswer = questions[currentQuestion].answer;
+    var answerChosen = $(this).attr('data-answer');
+
+    if (correctAnswer === answerChosen) {
+      gameFunctions.correctAnswers++;
+      gameFunctions.revealAnswerCorrect();
+    }
+    else {
+      gameFunctions.incorrectAnswers++;
+      gameFunctions.revealAnswerIncorrect();
+    }
   },
   tallyScore: function() {
-    //TODO: show how many correct answers at end
-  },
-  resetGame: function() {
-    //TODO: reset game
+    $('#answersArea').html('<p>Correct answers given:'+gameFunctions.correctAnswers+'</p>');
+    $('#answersArea').append('<p>Incorrect answers given:'+gameFunctions.correctAnswers+'</p>');
   }
-  */
 };
 
 var timeFunctions = {
@@ -88,3 +99,5 @@ function startGame(){
   console.log(gameFunctions.questionsToAsk);
   gameFunctions.displayQuestion();
 }
+
+$(document).on('click', '.btn-primary', gameFunctions.checkAnswer);
