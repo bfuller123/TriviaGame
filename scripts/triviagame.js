@@ -47,6 +47,9 @@ var gameFunctions = {
   displayQuestion: function(){
     var question = gameFunctions.questionsToAsk.pop();
     $('#questionArea').html('<h3>'+question+'</h3>');
+    for(i=0; i < questions[question].options.length; i++){
+      $('#questionArea').append('<h4>'+questions[question].options[i]+'</h4>');
+    }
   }
   /*
   checkAnswer: function(){
