@@ -47,7 +47,11 @@ var gameFunctions = {
     var answers = Randomize.array(questions[question].options);
     $('#questionArea').html('<h3>'+question+'</h3><br>');
     for(let i=0; i < answers.length; i++){
-      $('#questionArea').append('<button class="btn btn-primary">'+answers[i]+'</button>');
+      var newButton = $('<button>');
+      newButton.addClass('btn btn-primary');
+      newButton.attr('data-answer', answers[i]);
+      newButton.text(answers[i]);
+      $('#questionArea').append(newButton);
       $('#questionArea').append('<br><br>');
     }
   }
@@ -81,5 +85,6 @@ var timeFunctions = {
 };
 
 function startGame(){
+  console.log(gameFunctions.questionsToAsk);
   gameFunctions.displayQuestion();
 }
