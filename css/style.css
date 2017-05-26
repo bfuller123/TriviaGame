@@ -8,14 +8,15 @@ body {
 
 .container-fluid {
   background-color: #ffffff;
-  width: 70%;
+  width: 75%;
   height: 100vh;
 }
 
 h1 {
   font-family: 'Fascinate Inline', cursive;
   color: navy;
-  font-size: 600%;
+  font-size: 775%;
+  letter-spacing: 25px;
 }
 
 #questionAsked {

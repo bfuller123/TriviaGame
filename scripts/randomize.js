@@ -12,7 +12,6 @@ var Randomize = {
   },
   objectKeys: function(object){
     var arrayOfKeys = Randomize.array(Object.keys(object));
-    console.log(arrayOfKeys);
     return arrayOfKeys;
   }
 };
