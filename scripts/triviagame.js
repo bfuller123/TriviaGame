@@ -44,11 +44,25 @@ var gameFunctions = {
   randomizeQuestions: function(){
     gameFunctions.questionsToAsk = Object.keys(questions);
   },
+  randomizeArray: function(array){
+    var tempArr = array;
+    var randomizedArray = [];
+    while(tempArr.length > 0){
+      var randNum = Math.floor(Math.random()*tempArr.length);
+      var choice = tempArr[randNum];
+      tempArr.splice(randNum, 1);
+      randomizedArray.push(choice);
+    }
+    return randomizedArray;
+  },
   displayQuestion: function(){
+    //TODO: Add answer attr to each button containing the answer that the button displays
     var question = gameFunctions.questionsToAsk.pop();
-    $('#questionArea').html('<h3>'+question+'</h3>');
-    for(i=0; i < questions[question].options.length; i++){
-      $('#questionArea').append('<h4>'+questions[question].options[i]+'</h4>');
+    var answers = gameFunctions.randomizeArray(questions[question].options);
+    $('#questionArea').html('<h3>'+question+'</h3><br>');
+    for(let i=0; i < answers.length; i++){
+      $('#questionArea').append('<button class="btn btn-primary">'+answers[i]+'</button>');
+      $('#questionArea').append('<br><br>');
     }
   }
   /*
