@@ -9,44 +9,43 @@ var questions = {
   'Which state first employed the bar exam?': {
     options:['Illinois', 'New York', 'Rhode Island', 'Massachussets'],
     answer: 'Massachussets'
-  }/*,
-  question3: {
-    options:[],
-    answer: null//this will be the answer
   },
-  question4: {
-    options:[],
-    answer: null//this will be the answer
+  'Which of these is NOT a definition of the idiom of "bar none"?': {
+    options:['no exclusions', 'for sure', 'without exceptions', 'obviously'],
+    answer: 'obviously'
   },
-  question6: {
-    options:[],
-    answer: null//this will be the answer
+  'What year did Barbie make her debut?': {
+    options:['1959', '1952', '1957', '1955'],
+    answer: '1959'
   },
-  question7: {
-    options:[],
-    answer: null//this will be the answer
+  "What is Babar the Elephant's occupation?": {
+    options:['scientist', 'king', 'lawyer', 'fire fighter'],
+    answer: 'king'
   },
-  question8: {
-    options:[],
-    answer: null//this will be the answer
+  'What is the other placeholder in programming that goes along with "bar"?': {
+    options:['Boo', 'Doo', 'Goo', 'Foo'],
+    answer: 'Foo'
   },
-  question9: {
-    options:[],
-    answer: null//this will be the answer
+  'Where does the dance "Bar" originate from?': {
+    options:['Oklahoma', 'Turkey', 'Ukraine', 'Alabama'],
+    answer: 'Turkey'
   },
-  question10: {
-    options:[],
-    answer: null//this will be the answer
-  }*/
+  'What do two vertical bars in programming mean?': {
+    options:['Or', 'False', 'And', 'If'],
+    answer: 'Or'
+  },
+  'In firearms, what does BAR stand for?': {
+    options:['Bowing Action Recoil', 'Browning Automatic Rifle', 'Branson Artillary Rounds', 'Bolted Assault Ruger'],
+    answer: 'Browning Automatic Rifle'
+  }
 };
 
 var timeFunctions = {
   questiontimerSecs: 15,
-  revealTimerSecs: 5000, //in milliseconds
+  revealTimerSecs: 3000, //in milliseconds
   stopTimer: function(timerToStop){
     clearInterval(timerToStop);
     timeFunctions.questiontimerSecs = 15;
-    timeFunctions.revealTimerSecs = 5000;
   },
   displayTime: function() {
     $('#timerArea').html(timeFunctions.questiontimerSecs);
@@ -74,21 +73,30 @@ var gameFunctions = {
   incorrectAnswers: 0,
   questionsToAsk: Randomize.objectKeys(questions),
   currentQuestion: null,
+  tallyScore: function() {
+    $('#answersArea').html('<p>Correct answers given: '+gameFunctions.correctAnswers+'</p>');
+    $('#answersArea').append('<p>Incorrect answers given: '+gameFunctions.correctAnswers+'</p>');
+  },
   displayQuestion: function(){
-    var question = gameFunctions.questionsToAsk.pop();
-    currentQuestion = question;
-    var answers = Randomize.array(questions[question].options);
-    $('#questionArea').html('<h3>'+question+'</h3><br>');
-    $('#answersArea').empty();
-    for(let i=0; i < answers.length; i++){
-      var newButton = $('<button>');
-      newButton.addClass('btn btn-primary');
-      newButton.attr('data-answer', answers[i]);
-      newButton.text(answers[i]);
-      $('#answersArea').append(newButton);
-      $('#answersArea').append('<br><br>');
+    if(gameFunctions.questionsToAsk.length > 0){
+      var question = gameFunctions.questionsToAsk.pop();
+      currentQuestion = question;
+      var answers = Randomize.array(questions[question].options);
+      $('#questionArea').html('<h3>'+question+'</h3><br>');
+      $('#answersArea').empty();
+      for(let i=0; i < answers.length; i++){
+        var newButton = $('<button>');
+        newButton.addClass('btn btn-primary');
+        newButton.attr('data-answer', answers[i]);
+        newButton.text(answers[i]);
+        $('#answersArea').append(newButton);
+        $('#answersArea').append('<br><br>');
+      }
+      timeFunctions.startQuestionTimer();
     }
-    timeFunctions.startQuestionTimer();
+    else{
+      gameFunctions.tallyScore();
+    }
   },
   revealAnswerCorrect: function(){
     $('#answersArea').html('<h4>'+questions[currentQuestion].answer+' is correct!</h4>');
@@ -110,10 +118,6 @@ var gameFunctions = {
       gameFunctions.incorrectAnswers++;
       gameFunctions.revealAnswerIncorrect();
     }
-  },
-  tallyScore: function() {
-    $('#answersArea').html('<p>Correct answers given:'+gameFunctions.correctAnswers+'</p>');
-    $('#answersArea').append('<p>Incorrect answers given:'+gameFunctions.correctAnswers+'</p>');
   }
 };
 
