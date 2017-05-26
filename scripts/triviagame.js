@@ -75,7 +75,7 @@ var gameFunctions = {
   currentQuestion: null,
   tallyScore: function() {
     $('#answersArea').html('<p>Correct answers given: ' + gameFunctions.correctAnswers + '</p>');
-    $('#answersArea').append('<p>Incorrect answers given: ' + gameFunctions.correctAnswers + '</p>');
+    $('#answersArea').append('<p>Incorrect answers given: ' + gameFunctions.incorrectAnswers + '</p>');
   },
   displayQuestion: function() {
     if (gameFunctions.questionsToAsk.length > 0) {
