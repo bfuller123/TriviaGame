@@ -4,3 +4,19 @@ body {
   align-items: center;
   text-align: center;
 }
+
+h1 {
+  font-family: 'Fascinate Inline', cursive;
+  color: navy;
+  font-size: 600%;
+}
+
+#questionAsked {
+  font-family: 'Stint Ultra Condensed', 'Helvetica', 'Arial', sans-serif;
+  font-size: 45px;
+}
+
+#timerArea {
+  color: red;
+  font-size: 22px;
+}
