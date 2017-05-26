@@ -56,13 +56,14 @@ var timeFunctions = {
     timeFunctions.displayTime();
     if(timeFunctions.questiontimerSecs === 0){
       timeFunctions.stopTimer(timerID);
+      gameFunctions.revealAnswerIncorrect();
     }
   },
-  startRevealTimer: function() {
-    //TODO: function to start reveal timer
+  revealAnswerTimer: function() {
+    timeFunctions.stopTimer(timerID);
+    setTimeout(gameFunctions.displayQuestion, timeFunctions.revealTimerSecs);
   },
   startQuestionTimer: function(){
-    //TODO: function to start timer once question begins
     timeFunctions.displayTime();
     timerID = setInterval(timeFunctions.countdown, 1000);
   }
@@ -78,6 +79,7 @@ var gameFunctions = {
     currentQuestion = question;
     var answers = Randomize.array(questions[question].options);
     $('#questionArea').html('<h3>'+question+'</h3><br>');
+    $('#answersArea').empty();
     for(let i=0; i < answers.length; i++){
       var newButton = $('<button>');
       newButton.addClass('btn btn-primary');
@@ -90,9 +92,11 @@ var gameFunctions = {
   },
   revealAnswerCorrect: function(){
     $('#answersArea').html('<h4>'+questions[currentQuestion].answer+' is correct!</h4>');
+    timeFunctions.revealAnswerTimer();
   },
   revealAnswerIncorrect: function(){
     $('#answersArea').html("<h4>I'm sorry. The correct answer is "+questions[currentQuestion].answer+'.</h4>');
+    timeFunctions.revealAnswerTimer();
   },
   checkAnswer: function(){
     var correctAnswer = questions[currentQuestion].answer;
